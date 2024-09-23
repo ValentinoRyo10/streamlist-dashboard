@@ -7,7 +7,7 @@ st.title("Customer Behavior Dashboard & RFM Analysis")
 st.write("")
 @st.cache_data
 def load_data():
-    data = pd.read_csv('main_data.csv')
+    data = pd.read_csv('dashboard/main_data.csv')
     return data
 
 data = load_data()
@@ -47,7 +47,7 @@ def rfm_analysis(data):
 
 def product_analysis(data):
     st.write("### Top 10 produk yang memiliki tingkat pembelian tertinggi")
-    all_data_df = pd.read_csv("main_data.csv")
+    all_data_df = pd.read_csv("dashboard/main_data.csv")
     top_products = all_data_df.groupby('product_category_name')['order_id'].nunique().reset_index()
     top_products.columns = ['product_category_name', 'purchase_count']
     top_10_products = top_products.sort_values(by='purchase_count', ascending=False).head(10)
@@ -133,7 +133,7 @@ def product_analysis(data):
 
 def customer_analysis(data):
     st.write("### Top 10 rata-rata waktu pengiriman tiap kota customers")
-    all_data_df = pd.read_csv("main_data.csv")
+    all_data_df = pd.read_csv("dashboard/main_data.csv")
     avg_delivery_time_per_city = all_data_df.groupby('customer_city')['delivery_time (day)'].mean().reset_index()
     avg_delivery_time_per_city.columns = ['customer_city', 'avg_delivery_time']
     avg_delivery_time_per_city = avg_delivery_time_per_city.sort_values(by='avg_delivery_time', ascending=False).head(10).reset_index(drop=True)
